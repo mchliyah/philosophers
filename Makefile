@@ -6,11 +6,11 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/04/25 02:40:44 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/14 17:22:35 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 CC = gcc
 

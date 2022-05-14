@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/12 23:58:05 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:21:49 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 time_t	get_time(void)
 {
-	struct timeval	*time;
+	struct timeval	time;
 
-	gettimeofday(time, NULL);
-	return (time->tv_sec * 1000 + time->tv_usec / 1000);
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	*to_do(int t)
+void	*to_do()
 {
-	(void)t;
-	printf("msg frome the thread \n");
+	printf(" msg frome the thread \n");
 	// usleep(50);
-	printf("end aftr sleeep \n");
+	printf(" ****end aftr sleeep \n");
+	return (0);
 }
 
 void	start(int ac, char **av, t_philo *philo)
 {
-	philo->time = get_time;
-	philo->phio_nbr = ft_atoi(av[1]);
+	philo->time = get_time();
+	philo->philo_nbr = ft_atoi(av[1]);
 	philo->t_die = ft_atoi(av[2]);
 	philo->t_eat = ft_atoi(av[3]);
 	philo->t_sleep = ft_atoi(av[4]);
@@ -42,7 +42,7 @@ void	start(int ac, char **av, t_philo *philo)
 
 int	main(int ac, char **av)
 {
-	pthread_t	*thrd;
+	pthread_t	thrd;
 	t_philo		philo;
 	int			i;
 
@@ -50,16 +50,17 @@ int	main(int ac, char **av)
 	{
 		start(ac, av, &philo);
 		i = 0;
-		while (i++ < philo.phio_nbr)
+		philo.j = 0;
+		while (i++ < philo.philo_nbr)
 		{
 			if (pthread_create(&thrd, NULL, &to_do, NULL) != 0)
 				return (1);
-			sleep(2);
+			sleep(1);
 		}
 		i = 0;
 		printf("%ld\n", philo.time);
-		printf("%ld\n", get_time);
-		while (i++ < philo.phio_nbr)
+		printf("%lu\n", get_time());
+		while (i++ < philo.philo_nbr)
 			pthread_join(thrd, NULL);
 	}
 	return (0);

@@ -6,12 +6,11 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/04 11:03:21 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/04/25 02:39:36 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/14 14:17:58 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 static long	loop(const char *str, int signe)
 {
