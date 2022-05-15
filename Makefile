@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
+#    By: mchliyah <mchliyah@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/14 17:22:35 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/15 17:01:17 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ RM = rm -f
 FILES = \
 		main.c\
 		ft_atoi.c\
+		ft_strlen.c\
 
 OBJECTS = $(FILES:.c=.o)
 
@@ -37,7 +38,7 @@ C_RES = \033[0m
 all : $(NAME)
 
 $(NAME) :  $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $(NAME) -fsanitize=address
+	@$(CC) $(OBJECTS) -o $(NAME) #-fsanitize=address
 	@echo "$(C_GREEN)[philosophers MANDATORY CREATED!]$(C_RES)"
 
 clean : 
