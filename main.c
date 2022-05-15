@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/14 17:21:49 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/15 15:22:58 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ time_t	get_time(void)
 void	*to_do()
 {
 	printf(" msg frome the thread \n");
-	// usleep(50);
+	usleep(5000);
 	printf(" ****end aftr sleeep \n");
 	return (0);
 }
 
-void	start(int ac, char **av, t_philo *philo)
+void	start(int ac, char **av, t_data *philo)
 {
 	philo->time = get_time();
 	philo->philo_nbr = ft_atoi(av[1]);
@@ -43,7 +43,7 @@ void	start(int ac, char **av, t_philo *philo)
 int	main(int ac, char **av)
 {
 	pthread_t	thrd;
-	t_philo		philo;
+	t_data		philo;
 	int			i;
 
 	if (ac == 5 || ac == 6)
@@ -55,13 +55,12 @@ int	main(int ac, char **av)
 		{
 			if (pthread_create(&thrd, NULL, &to_do, NULL) != 0)
 				return (1);
-			sleep(1);
+			pthread_detach(thrd);
+			usleep(50000);
 		}
 		i = 0;
 		printf("%ld\n", philo.time);
 		printf("%lu\n", get_time());
-		while (i++ < philo.philo_nbr)
-			pthread_join(thrd, NULL);
 	}
 	return (0);
 }
