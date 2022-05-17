@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/15 19:38:36 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:51:02 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	start_philo(t_data *data)
 	int	i;
 
 	i = 0;
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_nbr);
 	while (i < data->philo_nbr)
 	{
 		data->philo[i].eating = 0;
-		data->philo[i].position = i;
+		data->philo[i].position = i + 1;
 		data->philo[i].l_fork = i;
 		data->philo[i].r_fork = (i + 1) % data->philo_nbr;
 		data->philo[i].meal_nbr = 0;
-		//pthread_mutex_init();
+		data->philo[i].data = data;
+		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
 }
@@ -32,11 +34,13 @@ void	start_philo(t_data *data)
 int	start(int ac, char **av, t_data *data)
 {
 	data->time = get_time();
+	printf("i got here \n");
 	data->philo_nbr = ft_atoi(av[1]);
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
 	data->t_r_eat = 0;
+	pthread_mutex_init(&data->print, NULL);
 	if (ac == 6)
 		data->t_r_eat = ft_atoi(av[5]);
 	if (data->philo_nbr < 2 || data->philo_nbr > 200 || data->t_die < 100

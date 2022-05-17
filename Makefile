@@ -6,7 +6,7 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/15 19:41:33 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/17 13:24:24 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ C_RES = \033[0m
 all : $(NAME)
 
 $(NAME) :  $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $(NAME) -fsanitize=address
+	@$(CC) $(OBJECTS) -o $(NAME) -fsanitize=thread
 	@echo "$(C_GREEN)[philosophers MANDATORY CREATED!]$(C_RES)"
 
 clean : 

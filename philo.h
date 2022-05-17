@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/16 16:02:30 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:51:32 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+struct	s_data;
+
 typedef struct s_philo
 {
 	int				position;
@@ -28,8 +30,7 @@ typedef struct s_philo
 	int				l_fork;
 	int				r_fork;
 	int				meal_nbr;
-	// pthread_mutex_t	l_fork;
-	// pthread_mutex_t	r_fork;
+	struct s_data	*data;
 }					t_philo;
 
 typedef struct s_data
@@ -41,8 +42,10 @@ typedef struct s_data
 	int				t_sleep;
 	int				t_r_eat;
 	int				j;
+	time_t			start_time;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print;
 }	t_data;
 
 int		ft_atoi(const char *str);
