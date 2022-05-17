@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchliyah <mchliyah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/17 13:51:02 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:04:41 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	start_philo(t_data *data)
 		data->philo[i].meal_nbr = 0;
 		data->philo[i].data = data;
 		pthread_mutex_init(&data->forks[i], NULL);
+		// pthread_mutex_init(&data->forks[i], NULL);
+		// pthread_mutex_(&data->forks[i], NULL);
 		i++;
 	}
 }
@@ -51,5 +53,6 @@ int	start(int ac, char **av, t_data *data)
 	if (!(data->philo))
 		return (0);
 	start_philo(data);
+	
 	return (1);
 }
