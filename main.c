@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchliyah <mchliyah@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/17 16:38:15 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/18 21:30:39 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ time_t	get_time(void)
 
 void	printing(t_philo *philo, char *msg)
 {
-
 	pthread_mutex_lock(&philo->data->print);
-	printf("%zu\t%d\t%s", (get_time() - philo->data->start_time), philo->position, msg);
+	printf("%zu\t%d\t%s", (get_time() - philo->data->time_start), philo->position, msg);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
@@ -45,16 +44,17 @@ void	*to_do(void *dt)
 	philo = (t_philo *)dt;
 	while (1)
 	{
-		philo->last_eat = get_time() - philo->data->start_time;
-		philo->limit = philo->last_eat + philo->data->t_die;
-		printf("%zu\n time is", philo->data->start_time);
 		pthread_mutex_lock(&philo->data->forks[philo->l_fork]);
 		pthread_mutex_lock(&philo->data->forks[philo->r_fork]);
-		printing(philo, "is eatingn\n");
-		printing(philo, "is sleeping\n");
+		philo->last_eat = get_time() - philo->data->time_start;
+		philo->limit = philo->last_eat + philo->data->t_die;
+		printing(philo, "is eating\n");
+		my_sleep(philo->data->t_eat);
 		pthread_mutex_unlock(&philo->data->forks[philo->l_fork]);
 		pthread_mutex_unlock(&philo->data->forks[philo->r_fork]);
-		usleep(philo->data->t_sleep * 1000);
+		printing(philo, "is sleeping\n");
+		my_sleep(philo->data->t_sleep);
+		printing(philo, "is thinking\n");
 	}
 	return (0);
 }
@@ -66,22 +66,20 @@ int	main(int ac, char **av)
 	void		*philo;
 	int			i;
 
-	data->start_time = get_time();
+	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6)
 		return (err_exit("arguments error\n"));
 	if (!start(ac, av, data))
 		return (err_exit("start error\n"));
 	i = -1;
-	data->j = 0;
-	data = malloc(sizeof(t_data));
 	while (++i < data->philo_nbr)
 	{
-		printf("%zu\n time is", data->start_time);
-		philo = (void*)(&data->philo[i]);
-		if (!pthread_create(&thrd, NULL, &to_do, philo))
+		philo = (void *)(&data->philo[i]);
+		if (pthread_create(&thrd, NULL, &to_do, philo) != 0)
 			return (1);
 		pthread_detach(thrd);
 		my_sleep(1);
 	}
+	// while (1);
 	return (0);
 }
