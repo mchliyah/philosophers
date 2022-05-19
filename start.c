@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/18 21:10:07 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/19 20:12:09 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	start(int ac, char **av, t_data *data)
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
 	data->t_r_eat = 0;
+	data->someone_dead = 0;
 	data->forks = NULL;
 	data->philo = NULL;
 	if (ac == 6)
