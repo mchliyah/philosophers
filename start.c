@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/19 20:12:09 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/20 14:41:42 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ int	start(int ac, char **av, t_data *data)
 	data->philo = NULL;
 	if (ac == 6)
 		data->t_r_eat = ft_atoi(av[5]);
-	if (data->philo_nbr < 2 || data->philo_nbr > 200 || data->t_die < 100
-		|| data->t_eat < 100 || data->t_sleep < 100
-		|| data->t_r_eat < 0)
+	if (data->philo_nbr < 1)
 		return (0);
 	data->philo = (t_philo *)malloc(sizeof(*(data->philo)) * data->philo_nbr);
 	if (!(data->philo))
