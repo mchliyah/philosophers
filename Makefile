@@ -6,7 +6,7 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/20 22:20:20 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/21 22:21:00 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ FILES = \
 		ft_strlen.c\
 		start.c	\
 		error.c\
+		print.c\
 
 OBJECTS = $(FILES:.c=.o)
 
@@ -40,7 +41,7 @@ C_RES = \033[0m
 all : $(NAME)
 
 $(NAME) :  $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $(NAME) #-fsanitize=thread
+	@$(CC) $(OBJECTS) -o $(NAME) -fsanitize=address
 	@echo "$(C_GREEN)[philosophers MANDATORY CREATED!]$(C_RES)"
 
 clean : 
