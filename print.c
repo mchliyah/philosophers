@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/21 22:03:09 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:24:05 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	printing(t_philo *philo, char *msg)
 {
 	time_t	time;
 
-	time = get_time() - philo->data->t_start;
+	time = get_time() - philo->data->start;
 	pthread_mutex_lock(&philo->data->print);
 	printf("\033[0;36m%0.4zu\033[0m\t[%d]\t%s", time, philo->position, msg);
 	pthread_mutex_unlock(&philo->data->print);
@@ -32,7 +32,7 @@ void	take_forks(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	philo->l_eat = get_time() - philo->data->t_start;
+	philo->lmt = get_time() - philo->data->start;
 	printing(philo, "\033[1;32m is eating\n\033[0m");
 	my_sleep(philo->data->t_eat);
 	pthread_mutex_unlock(&philo->data->forks[philo->l_fork]);

@@ -6,7 +6,7 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/21 22:21:00 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/22 13:09:40 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = gcc
 
-FLAGS = -Wall -Werror -Wextra -c 
+FLAGS = -Wall -Werror -Wextra -c  
 
 RM = rm -f
 
@@ -41,7 +41,7 @@ C_RES = \033[0m
 all : $(NAME)
 
 $(NAME) :  $(OBJECTS)
-	@$(CC) $(OBJECTS) -o $(NAME) -fsanitize=address
+	@$(CC) $(OBJECTS) -o $(NAME) #-fsanitize=thread
 	@echo "$(C_GREEN)[philosophers MANDATORY CREATED!]$(C_RES)"
 
 clean : 

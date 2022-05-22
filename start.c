@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/21 22:02:43 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:23:20 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	start_philo(t_data *data)
 		data->philo[i].r_fork = (i + 1) % data->philo_nbr;
 		data->philo[i].meal_nbr = 0;
 		data->philo[i].data = data;
-		data->philo[i].l_eat = 0;
+		data->philo[i].lmt = 0;
 		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
@@ -45,7 +45,7 @@ int	start_philo(t_data *data)
 
 int	start(int ac, char **av, t_data *data)
 {
-	data->t_start = get_time();
+	data->start = get_time();
 	data->philo_nbr = ft_atoi(av[1]);
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
