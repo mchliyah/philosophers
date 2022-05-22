@@ -6,20 +6,11 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/22 13:39:51 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/22 17:40:46 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	my_sleep(time_t t)
-{
-	time_t	t0;
-
-	t0 = get_time();
-	while ((get_time() - t0) < t)
-		usleep(300);
-}
 
 int	threading(pthread_t	thrd, t_data *data, int i)
 {
@@ -40,6 +31,10 @@ int	philo_creat(pthread_t	thrd, t_data *data)
 	int		i;
 
 	i = 0;
+	if (data->meal_nbr != -1)
+	{
+		
+	}
 	while (i < data->philo_nbr)
 	{
 		if (!threading(thrd, data, i))

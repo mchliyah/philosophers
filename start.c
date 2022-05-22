@@ -6,11 +6,20 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/22 13:23:20 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/22 14:10:02 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	my_sleep(time_t t)
+{
+	time_t	t0;
+
+	t0 = get_time();
+	while ((get_time() - t0) < t)
+		usleep(300);
+}
 
 time_t	get_time(void)
 {
@@ -30,11 +39,10 @@ int	start_philo(t_data *data)
 		return (0);
 	while (i < data->philo_nbr)
 	{
-		data->philo[i].eating = 0;
 		data->philo[i].position = i + 1;
 		data->philo[i].l_fork = i;
 		data->philo[i].r_fork = (i + 1) % data->philo_nbr;
-		data->philo[i].meal_nbr = 0;
+		data->philo[i].eating = 0;
 		data->philo[i].data = data;
 		data->philo[i].lmt = 0;
 		pthread_mutex_init(&data->forks[i], NULL);
@@ -50,12 +58,12 @@ int	start(int ac, char **av, t_data *data)
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
-	data->t_r_eat = 0;
+	data->meal_nbr = -1;
 	data->someone_dead = 0;
 	data->forks = NULL;
 	data->philo = NULL;
 	if (ac == 6)
-		data->t_r_eat = ft_atoi(av[5]);
+		data->meal_nbr = ft_atoi(av[5]);
 	if (data->philo_nbr < 1)
 		return (0);
 	data->philo = (t_philo *)malloc(sizeof(*(data->philo)) * data->philo_nbr);
