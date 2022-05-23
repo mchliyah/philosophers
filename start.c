@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/22 14:10:02 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:21:04 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	start_philo(t_data *data)
 		data->philo[i].eating = 0;
 		data->philo[i].data = data;
 		data->philo[i].lmt = 0;
+		data->philo[i].is_eating = 0;
 		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
@@ -59,6 +60,7 @@ int	start(int ac, char **av, t_data *data)
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
 	data->meal_nbr = -1;
+	data->meal_stop = 0;
 	data->someone_dead = 0;
 	data->forks = NULL;
 	data->philo = NULL;

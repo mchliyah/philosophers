@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/22 17:40:46 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:25:51 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@ int	threading(pthread_t	thrd, t_data *data, int i)
 
 int	philo_creat(pthread_t	thrd, t_data *data)
 {
-	int		i;
+	int			i;
 
 	i = 0;
-	if (data->meal_nbr != -1)
-	{
-		
-	}
 	while (i < data->philo_nbr)
 	{
 		if (!threading(thrd, data, i))
@@ -67,9 +63,9 @@ int	main(int ac, char **av)
 {
 	pthread_t	thrd;
 	t_data		*data;
-	void		*philo;
 	int			i;
 
+	thrd = NULL;
 	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, data))
 		return (err_exit("arguments error\n", data));
@@ -80,8 +76,11 @@ int	main(int ac, char **av)
 		i = -1;
 		while (++i < data->philo_nbr)
 		{
-			if (data->t_die <= (get_time() - data->start - data->philo[i].lmt))
+			if (data->t_die <= (get_time() - data->start - data->philo[i].lmt)
+				&& !data->philo[i].is_eating)
 				return (death(data, i));
+			if (data->meal_stop)
+				return (4);
 		}
 	}
 	return (0);

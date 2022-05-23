@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/22 14:04:49 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:20:40 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_philo
 	int				position;
 	int				l_fork;
 	int				r_fork;
+	int				is_eating;
 	time_t			lmt;
 	struct s_data	*data;
 }					t_philo;
@@ -38,6 +39,7 @@ typedef struct s_data
 	int				t_eat;
 	int				t_sleep;
 	int				meal_nbr;
+	int				meal_stop;
 	int				someone_dead;
 	time_t			start;
 	t_philo			*philo;
