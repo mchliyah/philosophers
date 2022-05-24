@@ -6,28 +6,11 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/23 18:21:04 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/24 21:40:39 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	my_sleep(time_t t)
-{
-	time_t	t0;
-
-	t0 = get_time();
-	while ((get_time() - t0) < t)
-		usleep(300);
-}
-
-time_t	get_time(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
 
 int	start_philo(t_data *data)
 {
@@ -68,11 +51,13 @@ int	start(int ac, char **av, t_data *data)
 		data->meal_nbr = ft_atoi(av[5]);
 	if (data->philo_nbr < 1)
 		return (0);
-	data->philo = (t_philo *)malloc(sizeof(*(data->philo)) * data->philo_nbr);
+	data->philo = malloc(sizeof(*(data->philo)) * data->philo_nbr);
 	if (!(data->philo))
 		return (0);
 	if (!start_philo(data))
 		return (0);
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->dead, NULL);
+	pthread_mutex_init(&data->pr, NULL);
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/23 18:10:10 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/24 21:53:59 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,13 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra   # -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=thread  -g
 
 RM = rm -f
 
 FILES = \
 		main.c\
-		ft_atoi.c\
-		ft_strlen.c\
+		utils.c\
 		start.c	\
 		error.c\
 		print.c\

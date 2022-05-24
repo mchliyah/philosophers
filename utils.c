@@ -1,16 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/04 11:03:21 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/14 14:17:58 by mchliyah         ###   ########.fr       */
+/*   Created: 2022/05/23 19:15:54 by mchliyah          #+#    #+#             */
+/*   Updated: 2022/05/23 19:18:01 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
 
 static long	loop(const char *str, int signe)
 {
@@ -57,4 +69,21 @@ int	ft_atoi(const char *str)
 		str++;
 	result = loop(str, signe);
 	return (result);
+}
+
+time_t	get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void	my_sleep(time_t t)
+{
+	time_t	t0;
+
+	t0 = get_time();
+	while ((get_time() - t0) < t)
+		usleep(300);
 }
