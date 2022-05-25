@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/24 21:33:30 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:21:36 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_data
 	int				meal_stop;
 	int				someone_dead;
 	time_t			start;
+	time_t			*limit;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;

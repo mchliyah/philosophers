@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/24 21:40:39 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:22:33 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	start(int ac, char **av, t_data *data)
 	if (data->philo_nbr < 1)
 		return (0);
 	data->philo = malloc(sizeof(*(data->philo)) * data->philo_nbr);
+	data->limit = malloc(sizeof(time_t) * data->philo_nbr);
 	if (!(data->philo))
 		return (0);
 	if (!start_philo(data))
