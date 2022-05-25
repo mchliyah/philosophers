@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/25 14:23:57 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:33:45 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,21 @@ int	death(t_data *data, int i)
 	time = get_time() - data->start;
 	pthread_mutex_lock(&data->print);
 	printf("\033[0;36m%6zu\033[0m\t[%d]\t \033[1;31mis dead \n", time, i + 1);
-	return (4);
+	return (1);
 }
 
-// int	check(t_data *data, time_t	*limit)
-// {
-// 	int	i;
-
-// 	while (1)
-// 	{
-// 		i = -1;
-// 		while (++i < data->philo_nbr)
-// 		{
-// 			pthread_mutex_lock(&data->pr);
-// 			limit[i] = data->philo[i].lmt;
-// 			pthread_mutex_unlock(&data->pr);
-// 			if (data->t_die <= (get_time() - data->start - limit[i])
-// 				&& !data->philo[i].is_eating)
-// 				return (death(data, i));
-// 			if (data->meal_stop)
-// 				return (0);
-// 		}
-// 	}
-// 	return (1);
-// }
+int	stop_exit(t_data *data, int i)
+{
+	pthread_mutex_lock(&data->pr);
+	data->limit[i] = data->philo[i].lmt;
+	pthread_mutex_unlock(&data->pr);
+	if (data->t_die <= (get_time() - data->start - data->limit[i])
+		&& !data->philo[i].is_eating)
+		return (death(data, i));
+	if (data->meal_stop)
+		return (1);
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -101,13 +92,7 @@ int	main(int ac, char **av)
 		i = -1;
 		while (++i < data->philo_nbr)
 		{
-			pthread_mutex_lock(&data->pr);
-			data->limit[i] = data->philo[i].lmt;
-			pthread_mutex_unlock(&data->pr);
-			if (data->t_die <= (get_time() - data->start - data->limit[i])
-				&& !data->philo[i].is_eating)
-				return (death(data, i));
-			if (data->meal_stop)
+			if (stop_exit(data, i))
 				return (0);
 		}
 	}
