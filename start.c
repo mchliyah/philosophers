@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/25 14:22:33 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/26 20:44:19 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	start(int ac, char **av, t_data *data)
 		return (0);
 	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->dead, NULL);
-	pthread_mutex_init(&data->pr, NULL);
+	pthread_mutex_init(&data->time, NULL);
+	pthread_mutex_init(&data->meal, NULL);
 	return (1);
 }

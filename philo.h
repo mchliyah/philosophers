@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/25 14:21:36 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/26 20:42:56 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	pthread_mutex_t	dead;
-	pthread_mutex_t	pr;
+	pthread_mutex_t	time;
+	pthread_mutex_t	eat;
+	pthread_mutex_t	meal;
 }	t_data;
 
 int		ft_atoi(const char *str);

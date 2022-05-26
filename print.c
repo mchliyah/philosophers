@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/24 22:08:40 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/26 22:28:37 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	take_forks(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->pr);
+	pthread_mutex_lock(&philo->data->time);
 	philo->lmt = get_time() - philo->data->start;
-	pthread_mutex_unlock(&philo->data->pr);
+	pthread_mutex_unlock(&philo->data->time);
 	philo->is_eating = 1;
 	printing(philo, "\033[1;32m is eating\n\033[0m");
 	my_sleep(philo->data->t_eat);
@@ -54,23 +54,26 @@ void	*simulation(void *dt)
 {
 	t_philo	*philo;
 	int		check;
+	int		meal;
 
 	philo = (t_philo *)dt;
-	pthread_mutex_lock(&philo->data->dead);
 	check = philo->data->someone_dead;
-	pthread_mutex_unlock(&philo->data->dead);
-	while (!check && !philo->data->meal_stop)
+	meal = philo->data->meal_stop;
+	while (!check && !meal)
 	{
 		take_forks(philo);
 		eating(philo);
 		philo->eating++;
 		if (philo->data->meal_nbr != -1
 			&& philo->eating > philo->data->meal_nbr)
+		{
+			pthread_mutex_lock(&philo->data->meal);
+			meal = 1;
 			philo->data->meal_stop = 1;
+			pthread_mutex_unlock(&philo->data->meal);
+		}
 		sleeping_thinking(philo);
-		pthread_mutex_lock(&philo->data->dead);
 		check = philo->data->someone_dead;
-		pthread_mutex_unlock(&philo->data->dead);
 	}
 	return (0);
 }

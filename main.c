@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/25 14:33:45 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:04:26 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	threading(pthread_t	thrd, t_data *data, int i)
 		philo = (void *)(&data->philo[i]);
 		if (pthread_create(&thrd, NULL, &simulation, philo) != 0)
 			return (0);
+		pthread_detach(thrd);
 	}
 	return (1);
 }
@@ -62,13 +63,18 @@ int	death(t_data *data, int i)
 
 int	stop_exit(t_data *data, int i)
 {
-	pthread_mutex_lock(&data->pr);
+	int	check;
+
+	pthread_mutex_lock(&data->meal);
+	check = data->meal_stop;
+	pthread_mutex_unlock(&data->meal);
+	pthread_mutex_lock(&data->time);
 	data->limit[i] = data->philo[i].lmt;
-	pthread_mutex_unlock(&data->pr);
+	pthread_mutex_unlock(&data->time);
 	if (data->t_die <= (get_time() - data->start - data->limit[i])
 		&& !data->philo[i].is_eating)
 		return (death(data, i));
-	if (data->meal_stop)
+	if (check)
 		return (1);
 	return (0);
 }
@@ -93,7 +99,10 @@ int	main(int ac, char **av)
 		while (++i < data->philo_nbr)
 		{
 			if (stop_exit(data, i))
+			{
+				free(thrd);
 				return (0);
+			}
 		}
 	}
 	return (0);
