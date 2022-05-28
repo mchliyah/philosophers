@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/26 22:28:37 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:02:52 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ void	printing(t_philo *philo, char *msg)
 
 	time = get_time() - philo->data->start;
 	pthread_mutex_lock(&philo->data->print);
-	printf("\033[0;36m%6zu\033[0m\t[%d]\t%s", time, philo->position, msg);
+	printf("%6zu\t[%d]\t%s", time, philo->position, msg);
 	pthread_mutex_unlock(&philo->data->print);
 }
 
 void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->data->forks[philo->r_fork]);
-	printing(philo, "\033[1;34m taking a l_fork\n\033[0m");
+	printing(philo, "taking a fork\n");
 	pthread_mutex_lock(&philo->data->forks[philo->l_fork]);
-	printing(philo, "\033[1;34m taking a r_fork\n\033[0m");
+	printing(philo, "taking a fork\n");
 }
 
 void	eating(t_philo *philo)
@@ -45,9 +45,9 @@ void	eating(t_philo *philo)
 
 void	sleeping_thinking(t_philo *philo)
 {
-	printing(philo, "\033[0;35m is sleeping\n\033[0m");
+	printing(philo, "is sleeping\n");
 	my_sleep(philo->data->t_sleep);
-	printing(philo, "\033[0;33m is thinking\n\033[0m");
+	printing(philo, "is thinking\n");
 }
 
 void	*simulation(void *dt)

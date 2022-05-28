@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/26 21:04:26 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:00:06 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,10 @@ int	stop_exit(t_data *data, int i)
 		&& !data->philo[i].is_eating)
 		return (death(data, i));
 	if (check)
+	{
+		pthread_mutex_lock(&data->print);
 		return (1);
+	}
 	return (0);
 }
 
@@ -99,10 +102,7 @@ int	main(int ac, char **av)
 		while (++i < data->philo_nbr)
 		{
 			if (stop_exit(data, i))
-			{
-				free(thrd);
 				return (0);
-			}
 		}
 	}
 	return (0);
