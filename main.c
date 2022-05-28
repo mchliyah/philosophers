@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/28 17:00:06 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:23:58 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ int	death(t_data *data, int i)
 {
 	time_t		time;
 
-	pthread_mutex_lock(&data->dead);
-	data->someone_dead = 1;
-	pthread_mutex_unlock(&data->dead);
 	time = get_time() - data->start;
 	pthread_mutex_lock(&data->print);
 	printf("\033[0;36m%6zu\033[0m\t[%d]\t \033[1;31mis dead \n", time, i + 1);
@@ -71,14 +68,14 @@ int	stop_exit(t_data *data, int i)
 	pthread_mutex_lock(&data->time);
 	data->limit[i] = data->philo[i].lmt;
 	pthread_mutex_unlock(&data->time);
-	if (data->t_die <= (get_time() - data->start - data->limit[i])
-		&& !data->philo[i].is_eating)
-		return (death(data, i));
 	if (check)
 	{
 		pthread_mutex_lock(&data->print);
 		return (1);
 	}
+	if (data->t_die <= (get_time() - data->start - data->limit[i])
+		&& !data->philo[i].is_eating)
+		return (death(data, i));
 	return (0);
 }
 
@@ -95,7 +92,7 @@ int	main(int ac, char **av)
 	if (!philo_creat(thrd, data))
 		return (2);
 	i = 0;
-	usleep(1000);
+	usleep(500);
 	while (1)
 	{
 		i = -1;

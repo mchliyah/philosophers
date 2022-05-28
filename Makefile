@@ -6,7 +6,7 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/28 17:03:28 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/28 17:24:54 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=thread
 
 RM = rm -f
 
