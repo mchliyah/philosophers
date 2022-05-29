@@ -6,24 +6,24 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/05/28 21:59:01 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/05/29 22:45:22 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_bonus
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra #-fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -fsanitize=address
 
 RM = rm -f
 
 FILES = \
-		mandatory/main.c\
-		mandatory/utils.c\
-		mandatory/start.c	\
-		mandatory/error.c\
-		mandatory/print.c\
+		main.c\
+		utils.c\
+		start.c	\
+		error.c\
+		print.c\
 
 OBJECTS = $(FILES:.c=.o)
 
