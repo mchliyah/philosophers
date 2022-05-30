@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/30 00:27:23 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/30 01:44:39 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*simulation(void *dt)
 	// int		meal;
 
 	philo = (t_philo *)dt;
-	printf("hi\n");
+	printf("philo %d say good bye\n", philo->position);
 	// check = philo->data->someone_dead;
 	// meal = philo->data->meal_stop;
 	// while (!check && !meal)

@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/30 00:43:24 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/30 01:43:54 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,16 @@ int	main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, data))
 		return (err_exit("arguments error\n", data));
-	while (i <= (data->philo_nbr))
+	while (i < (data->philo_nbr))
 	{
-		data->philo[i].position = fork();
-		if (data->philo[i].position < 0)
+		data->philo[i].pid = fork();
+		data->philo[i].position = i + 1;
+		if (data->philo[i].pid < 0)
 			return (1);
-		else if (data->philo[i].position == 0)
+		else if (data->philo[i].pid == 0)
 			if (!simulation(&data->philo[i]))
 				return (0);
-		usleep(50);
+		usleep(100);
 		i++;
 	}
 	return (0);

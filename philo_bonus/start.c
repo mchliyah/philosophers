@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/30 00:42:48 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/30 01:33:33 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	start(int ac, char **av, t_data *data)
 		data->meal_nbr = ft_atoi(av[5]);
 	if (data->philo_nbr < 1)
 		return (0);
-	data->philo = malloc(sizeof(t_philo *) * data->philo_nbr);
+	data->philo = malloc(sizeof(t_philo) * data->philo_nbr);
 	if (!data->philo)
 		return (0);
 	return (1);
