@@ -6,49 +6,52 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:38:01 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/30 01:33:33 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:59:45 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	start_philo(t_data *data)
+int	start_philo(t_philo *philo)
 {
-	int	i;
+	unsigned int		i;
 
 	i = 0;
-	while (i < data->philo_nbr)
-	{
-		data->philo[i].position = i + 1;
-		data->philo[i].l_fork = i;
-		data->philo[i].r_fork = (i + 1) % data->philo_nbr;
-		data->philo[i].eating = 0;
-		data->philo[i].data = data;
-		data->philo[i].lmt = 0;
-		data->philo[i].is_eating = 0;
-		i++;
-	}
+	philo->c_fork = "forks";
+	philo->c_print = "print";
+	philo->c_dead = "dead";
+	philo->c_meal = "meal";
+	sem_unlink(philo->c_fork);
+	sem_unlink(philo->c_meal);
+	sem_unlink(philo->c_print);
+	sem_unlink(philo->c_dead);
+	philo->forks = sem_open(philo->c_fork, O_CREAT | O_EXCL, 0644, philo->nbr);
+	philo->print = sem_open(philo->c_print, O_CREAT | O_EXCL, 0644, 1);
+	philo->dead = sem_open(philo->c_dead, O_CREAT | O_EXCL, 0644, 1);
+	philo->dead = sem_open(philo->c_meal, O_CREAT | O_EXCL, 0644, 1);
+	philo->eating = 0;
+	philo->lmt = 0;
+	philo->is_eating = 0;
 	return (1);
 }
 
-int	start(int ac, char **av, t_data *data)
+int	start(int ac, char **av, t_philo *philo)
 {
-	data->start = get_time();
-	data->philo_nbr = ft_atoi(av[1]);
-	data->t_die = ft_atoi(av[2]);
-	data->t_eat = ft_atoi(av[3]);
-	data->t_sleep = ft_atoi(av[4]);
-	data->meal_nbr = -1;
-	data->meal_stop = 0;
-	data->someone_dead = 0;
-	data->forks = NULL;
-	data->philo = NULL;
+	philo->nbr = ft_atoi(av[1]);
+	philo->t_die = ft_atoi(av[2]);
+	philo->t_eat = ft_atoi(av[3]);
+	philo->t_sleep = ft_atoi(av[4]);
+	philo->meal_nbr = -1;
+	philo->meal_stop = 0;
+	philo->someone_dead = 0;
 	if (ac == 6)
-		data->meal_nbr = ft_atoi(av[5]);
-	if (data->philo_nbr < 1)
+		philo->meal_nbr = ft_atoi(av[5]);
+	if (philo->nbr < 1)
 		return (0);
-	data->philo = malloc(sizeof(t_philo) * data->philo_nbr);
-	if (!data->philo)
+	philo->pid = malloc(sizeof(int) * philo->nbr);
+	if (!philo->pid)
+		return (0);
+	if (!start_philo(philo))
 		return (0);
 	return (1);
 }

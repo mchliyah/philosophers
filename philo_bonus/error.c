@@ -6,15 +6,16 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:37:22 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/21 18:49:57 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/02 01:08:46 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	err_exit(char const *str, t_data *data)
+int	err_exit(char const *str, t_philo *philo)
 {
-	free (data);
+	(void)philo;
+	// free (data);
 	if (str)
 		write(1, str, ft_strlen(str));
 	return (1);

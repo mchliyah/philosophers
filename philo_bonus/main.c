@@ -6,100 +6,93 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/30 01:43:54 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/02 15:49:02 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	threading(pthread_t	thrd, t_data *data, int i)
-{
-	void	*philo;
-
-	if (!data->someone_dead)
-	{
-		philo = (void *)(&data->philo[i]);
-		if (pthread_create(&thrd, NULL, &simulation, philo) != 0)
-			return (0);
-		pthread_detach(thrd);
-	}
-	return (1);
-}
-
-int	philo_creat(pthread_t	thrd, t_data *data)
-{
-	int			i;
-
-	i = 0;
-	while (i < data->philo_nbr)
-	{
-		if (!threading(thrd, data, i))
-			return (0);
-		i += 2;
-	}
-	usleep (100);
-	i = 1;
-	while (i < data->philo_nbr)
-	{
-		if (!threading(thrd, data, i))
-			return (0);
-		i += 2;
-	}
-	return (1);
-}
-
-int	death(t_data *data, int i)
+int	death(t_philo *philo)
 {
 	time_t		time;
 
-	time = get_time() - data->start;
-	pthread_mutex_lock(&data->print);
-	printf("\033[0;36m%6zu\033[0m\t[%d]\t \033[1;31mis dead \n", time, i + 1);
+	sem_wait(philo->print);
+	time = get_time() - philo->start;
+	printf("%6zu\t[%d]\t\033[1;31mis dead \n", time, philo->position);
 	return (1);
 }
 
-int	stop_exit(t_data *data, int i)
+void	*monitor(void *ptr)
 {
-	int	check;
+	t_philo	*philo;
 
-	pthread_mutex_lock(&data->meal);
-	check = data->meal_stop;
-	pthread_mutex_unlock(&data->meal);
-	pthread_mutex_lock(&data->time);
-	data->limit[i] = data->philo[i].lmt;
-	pthread_mutex_unlock(&data->time);
-	if (check)
+	philo = (t_philo *)ptr;
+	while (1)
 	{
-		pthread_mutex_lock(&data->print);
-		return (1);
+		if (philo->t_die <= (get_time() - philo->start - philo->lmt)
+			&& !philo->is_eating)
+		{
+			death(philo);
+			exit (0);
+		}
 	}
-	if (data->t_die <= (get_time() - data->start - data->limit[i])
-		&& !data->philo[i].is_eating)
-		return (death(data, i));
 	return (0);
+}
+
+int	simulation(t_philo *philo, unsigned int i)
+{
+	pthread_t		tid;
+
+	philo->position = i + 1;
+	if (pthread_create(&tid, NULL, &monitor, philo) != 0)
+		return (0);
+	pthread_detach(tid);
+	while (1)
+	{
+		take_forks(philo);
+		eating(philo);
+		philo->eating++;
+		if (philo->meal_nbr != -1 && philo->eating > philo->meal_nbr)
+			exit(0);
+		sleeping_thinking(philo);
+	}
+	return (0);
+}
+
+int	philo_creat(t_philo *philo)
+{
+	unsigned int	i;
+
+	i = 0;
+	philo->start = get_time();
+	while (i < (philo->nbr))
+	{
+		philo->pid[i] = fork();
+		if (philo->pid[i] == 0)
+		{
+			simulation(philo, i);
+			return (0);
+		}
+		if (philo->pid[i] < 0)
+			return (0);
+		i ++;
+	}
+	return (1);
 }
 
 int	main(int ac, char **av)
 {
-	t_data		*data;
-	int			i;
+	t_philo			philo;
+	unsigned int	i;
 
 	i = 0;
-	data = NULL;
-	data = malloc(sizeof(t_data));
-	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, data))
-		return (err_exit("arguments error\n", data));
-	while (i < (data->philo_nbr))
-	{
-		data->philo[i].pid = fork();
-		data->philo[i].position = i + 1;
-		if (data->philo[i].pid < 0)
-			return (1);
-		else if (data->philo[i].pid == 0)
-			if (!simulation(&data->philo[i]))
-				return (0);
-		usleep(100);
-		i++;
-	}
+	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, &philo))
+		return (err_exit("start error\n", &philo));
+	if (!philo_creat(&philo))
+		return (1);
+	waitpid(-1, NULL, 0);
+	i = 0;
+	while (i < (philo.nbr))
+		kill(philo.pid[i++], SIGKILL);
 	return (0);
 }

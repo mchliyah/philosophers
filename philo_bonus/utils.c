@@ -6,11 +6,11 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 19:15:54 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/23 19:18:01 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:42:32 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {

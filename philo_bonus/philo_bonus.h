@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/30 01:41:06 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/02 14:58:26 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef PHILO_BONUS_H
+# define PHILO_BONUS_H
 
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
+# include <string.h>
+# include <semaphore.h>
 # include <sys/time.h>
-
-struct	s_data;
+# include <signal.h>
 
 typedef struct s_philo
 {
-	int				pid;
+	int				*pid;
 	int				eating;
 	int				position;
-	int				l_fork;
-	int				r_fork;
 	int				is_eating;
 	time_t			lmt;
-	struct s_data	*data;
-}					t_philo;
-
-typedef struct s_data
-{
-	int				philo_nbr;
+	unsigned int	nbr;
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
@@ -44,27 +38,32 @@ typedef struct s_data
 	int				someone_dead;
 	time_t			start;
 	time_t			*limit;
-	t_philo			*philo;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	print;
-	pthread_mutex_t	dead;
-	pthread_mutex_t	time;
-	pthread_mutex_t	eat;
-	pthread_mutex_t	meal;
-}	t_data;
+	sem_t			*forks;
+	sem_t			*print;
+	sem_t			*dead;
+	// sem_t			*time;
+	// sem_t			*eat;
+	sem_t			*meal;
+	char			*c_fork;
+	char			*c_print;
+	char			*c_dead;
+	// char			*c_time;
+	// char			*c_eat;
+	char			*c_meal;
+}					t_philo;
 
 int		ft_atoi(const char *str);
-void	*simulation(void *dt);
 size_t	ft_strlen(const char *str);
-int		start(int ac, char **av, t_data *data);
-int		err_exit(char const *str, t_data *data);
+int		start(int ac, char **av, t_philo *philo);
+int		err_exit(char const *str, t_philo *philo);
 time_t	get_time(void);
 int		args_error(int ac, char **av);
-int		check_start(t_data *data, int ac, char **av);
+int		check_start(t_philo *philo, int ac, char **av);
 void	take_forks(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping_thinking(t_philo *philo);
 void	printing(t_philo *philo, char *msg);
 void	my_sleep(time_t t);
+void	*monitor(void *ptr);
 
 #endif

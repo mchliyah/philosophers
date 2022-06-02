@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/28 17:23:58 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/05/31 20:39:45 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	death(t_data *data, int i)
 
 	time = get_time() - data->start;
 	pthread_mutex_lock(&data->print);
-	printf("\033[0;36m%6zu\033[0m\t[%d]\t \033[1;31mis dead \n", time, i + 1);
+	printf("%6zu\t[%d]\t \033[1;31mis dead \n", time, i + 1);
 	return (1);
 }
 
