@@ -18,8 +18,11 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <string.h>
+# include <fcntl.h>
 # include <semaphore.h>
 # include <sys/time.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <signal.h>
 
 typedef struct s_philo

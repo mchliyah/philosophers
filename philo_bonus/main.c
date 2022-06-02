@@ -74,7 +74,8 @@ int	philo_creat(t_philo *philo)
 		}
 		if (philo->pid[i] < 0)
 			return (0);
-		i ++;
+		usleep(100);
+		i++;
 	}
 	return (1);
 }

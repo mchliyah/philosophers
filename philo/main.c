@@ -85,7 +85,7 @@ int	main(int ac, char **av)
 	t_data		*data;
 	int			i;
 
-	thrd = NULL;
+	//thrd = NULL;
 	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, data))
 		return (err_exit("arguments error\n", data));
