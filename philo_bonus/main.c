@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/02 15:49:02 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/02 20:54:34 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,9 @@ int	simulation(t_philo *philo, unsigned int i)
 	philo->position = i + 1;
 	if (pthread_create(&tid, NULL, &monitor, philo) != 0)
 		return (0);
-	pthread_detach(tid);
 	while (1)
 	{
-		take_forks(philo);
+		// take_forks(philo);
 		eating(philo);
 		philo->eating++;
 		if (philo->meal_nbr != -1 && philo->eating > philo->meal_nbr)
@@ -65,7 +64,7 @@ int	philo_creat(t_philo *philo)
 
 	i = 0;
 	philo->start = get_time();
-	while (i < (philo->nbr))
+	while (i < philo->nbr)
 	{
 		philo->pid[i] = fork();
 		if (philo->pid[i] == 0)

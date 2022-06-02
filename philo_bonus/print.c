@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/02 15:00:27 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/02 19:49:24 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,21 @@ void	printing(t_philo *philo, char *msg)
 	sem_post(philo->print);
 }
 
-void	take_forks(t_philo *philo)
-{
-	sem_wait(philo->forks);
-	printing(philo, "taking a fork\n");
-	sem_wait(philo->forks);
-	printing(philo, "taking a fork\n");
-}
+// void	take_forks(t_philo *philo)
+// {
+// 	sem_wait(philo->forks);
+// 	printing(philo, "taking a fork\n");
+// 	sem_wait(philo->forks);
+// 	printing(philo, "taking a fork\n");
+// }
 
 void	eating(t_philo *philo)
 {
-	// sem_wait(philo->time);
+	sem_wait(philo->forks);
+	printing(philo, "taking a fork\n");
+	sem_wait(philo->forks);
+	printing(philo, "taking a fork\n");
 	philo->lmt = get_time() - philo->start;
-	// sem_post(philo->time);
 	philo->is_eating = 1;
 	printing(philo, "\033[1;32mis eating\033[0m\n");
 	my_sleep(philo->t_eat);
