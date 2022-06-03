@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/31 20:39:45 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/03 22:21:38 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,6 @@ int	stop_exit(t_data *data, int i)
 		pthread_mutex_lock(&data->print);
 		return (1);
 	}
-	if (data->t_die <= (get_time() - data->start - data->limit[i])
-		&& !data->philo[i].is_eating)
-		return (death(data, i));
 	return (0);
 }
 
@@ -85,14 +82,12 @@ int	main(int ac, char **av)
 	t_data		*data;
 	int			i;
 
-	//thrd = NULL;
+	thrd = 0;
 	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, data))
 		return (err_exit("arguments error\n", data));
 	if (!philo_creat(thrd, data))
 		return (2);
-	i = 0;
-	usleep(500);
 	while (1)
 	{
 		i = -1;
@@ -100,7 +95,11 @@ int	main(int ac, char **av)
 		{
 			if (stop_exit(data, i))
 				return (0);
+			if (data->t_die <= (get_time() - data->start - data->limit[i])
+				&& !data->philo[i].is_eating)
+				return (death(data, i));
 		}
+		usleep(50);
 	}
 	return (0);
 }
