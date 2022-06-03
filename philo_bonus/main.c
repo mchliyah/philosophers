@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/03 22:10:10 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/03 22:27:45 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	main(int ac, char **av)
 	i = 0;
 	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, &philo))
 		return (err_exit("start error\n", &philo));
+	if (philo.meal_stop == 0)
+		return (1);
 	if (!philo_creat(&philo))
 		return (1);
 	waitpid(-1, NULL, 0);
