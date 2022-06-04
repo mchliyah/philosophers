@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/26 20:42:56 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/04 21:58:12 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_data
 
 int		ft_atoi(const char *str);
 void	*simulation(void *dt);
-size_t	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 int		start(int ac, char **av, t_data *data);
 int		err_exit(char const *str, t_data *data);
 time_t	get_time(void);

@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:34:06 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/03 22:25:50 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/06/04 22:26:21 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,8 @@ int	main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	if (ac < 5 || ac > 6 || !args_error(ac, av) || !start(ac, av, data))
 		return (err_exit("arguments error\n", data));
-	if (data->meal_stop == 0)
+	if (data->meal_nbr == 0 || !philo_creat(thrd, data))
 		return (1);
-	if (!philo_creat(thrd, data))
-		return (2);
 	while (1)
 	{
 		i = -1;

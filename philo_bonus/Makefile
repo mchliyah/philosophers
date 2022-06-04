@@ -6,7 +6,7 @@
 #    By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/25 01:41:18 by mchliyah          #+#    #+#              #
-#    Updated: 2022/06/02 19:52:03 by mchliyah         ###   ########.fr        #
+#    Updated: 2022/06/04 22:31:59 by mchliyah         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ all : $(NAME)
 
 $(NAME) :  $(OBJECTS)
 	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
-	@echo "$(C_GREEN)[philosophers MANDATORY CREATED!]$(C_RES)"
+	@echo "$(C_GREEN)[philosophers BONUS CREATED!]$(C_RES)"
 
 clean : 
 	@$(RM) $(OBJECTS)
