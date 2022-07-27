@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/02 19:49:24 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:51:53 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	eating(t_philo *philo)
 	printing(philo, "taking a fork\n");
 	philo->lmt = get_time() - philo->start;
 	philo->is_eating = 1;
-	printing(philo, "\033[1;32mis eating\033[0m\n");
+	printing(philo, "is eating\n");
 	my_sleep(philo->t_eat);
 	philo->is_eating = 0;
 	sem_post(philo->forks);

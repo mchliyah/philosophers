@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 13:20:14 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/05/28 17:21:40 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:51:04 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	eating(t_philo *philo)
 	philo->lmt = get_time() - philo->data->start;
 	pthread_mutex_unlock(&philo->data->time);
 	philo->is_eating = 1;
-	printing(philo, "\033[1;32m is eating\n\033[0m");
+	printing(philo, "is eating\n");
 	my_sleep(philo->data->t_eat);
 	philo->is_eating = 0;
 	pthread_mutex_unlock(&philo->data->forks[philo->l_fork]);

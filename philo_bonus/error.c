@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:37:22 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/02 01:08:46 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:14:51 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	err_exit(char const *str, t_philo *philo)
 {
 	(void)philo;
-	// free (data);
 	if (str)
 		write(1, str, ft_strlen(str));
 	return (1);

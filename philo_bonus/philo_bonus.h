@@ -6,7 +6,7 @@
 /*   By: mchliyah <mchliyah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 01:28:55 by mchliyah          #+#    #+#             */
-/*   Updated: 2022/06/02 14:58:26 by mchliyah         ###   ########.fr       */
+/*   Updated: 2022/07/27 19:15:03 by mchliyah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ typedef struct s_philo
 	sem_t			*forks;
 	sem_t			*print;
 	sem_t			*dead;
-	// sem_t			*time;
-	// sem_t			*eat;
 	sem_t			*meal;
 	char			*c_fork;
 	char			*c_print;
 	char			*c_dead;
-	// char			*c_time;
-	// char			*c_eat;
 	char			*c_meal;
 }					t_philo;
 
